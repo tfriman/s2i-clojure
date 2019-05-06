@@ -1,6 +1,6 @@
 # s2i-clojure
 FROM openshift/base-centos7
-MAINTAINER Mike Piech <mpiech@redhat.com>
+MAINTAINER Timo Friman <tfriman@redhat.com>
 
 ENV BUILDER_VERSION 1.0
 
@@ -14,9 +14,6 @@ RUN yum -y install java-1.8.0-openjdk-devel && yum clean all
 RUN curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein -o ${HOME}/lein
 RUN chmod 775 ${HOME}/lein
 RUN ${HOME}/lein
-
-# TODO (optional): Copy the builder files into /opt/app-root
-# COPY ./<builder_folder>/ /opt/app-root/
 
 COPY ./s2i/bin/ /usr/libexec/s2i
 
