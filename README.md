@@ -14,6 +14,8 @@ You can follow the build
 
 ```oc logs -f bc/s2i-clojure -n openshift```
 
+## Usage example
+
 Create a test project
 
 ```oc new-project clj-test```
@@ -40,7 +42,7 @@ See the url for the application
 
 And open it using your browser.
 
-### Making s2i-clojure builder visible to catalog
+## Making s2i-clojure builder visible to catalog
 
 ```oc edit is/s2i-clojure -n openshift -o json```
 
