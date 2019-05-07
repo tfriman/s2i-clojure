@@ -1,18 +1,30 @@
 # OpenShift S2I image for building Clojure projects using 'lein uberjar' and Java8.
 
-## Installation to OpenShift
+## Installation to OpenShift 3.11
 
 Login to your OpenShift cluster
 
 ```oc login```
 
-You can install this to any namespace but "openshift" is visible to all. If you are using some other namespace than "openshift" make sure that namespace is visible to your projects.
+You can install this to any namespace but "openshift" is visible to all by default and it is used when service catalog searches for builders so let's use it.
 
-```oc new-build https://github.com/tfriman/s2i-clojure --name s2i-clojure -n namespacex```
+```oc new-build https://github.com/tfriman/s2i-clojure --name s2i-clojure -n openshift```
+
+You can follow the build
+
+```oc logs -f bc/s2i-clojure -n openshift```
+
+Create a test project
+
+```oc new-project clj-test```
 
 After the build has finished you can test your new builder:
 
-```oc new-build namespacex/s2i-clojure~https://bitbucket.org/tfriman/clj-rest-helloworld --name=clj-test```
+```oc new-build s2i-clojure~https://bitbucket.org/tfriman/clj-rest-helloworld --name=clj-test```
+
+And follow the build
+
+```oc logs -f bc/clj-test```
 
 After the build has finished create a new app:
 
@@ -24,13 +36,13 @@ And open the service to the world:
 
 See the url for the application
 
-```oc get routes```
+```oc get routes clj-test --template='{{ .spec.host }}'```
 
 And open it using your browser.
 
 ### Making s2i-clojure builder visible to catalog
 
-```oc edit is/s2i-clojure -n namespacex -o json```
+```oc edit is/s2i-clojure -n openshift -o json```
 
 Make it look like this:
 
@@ -39,7 +51,7 @@ Make it look like this:
     "kind": "ImageStream",
     "apiVersion": "v1",
     "metadata": {
-	"name": "s2i-clojure-buildr",
+	"name": "s2i-clojure-builder",
 	"annotations": {
 	    "openshift.io/display-name": "S2I Clojure"
 	}
@@ -49,16 +61,17 @@ Make it look like this:
 	    {
 		"name": "latest",
 		"annotations": {
-		    "openshift.io/display-name": "S2I Clojure xxx",
+		    "openshift.io/display-name": "S2I Clojure",
 		    "description": "Build and deploy a Clojure app",
 		    "iconClass": "icon-clojure",
 		    "sampleRepo": "https://bitbucket.org/tfriman/clj-rest-helloworld",
 		    "tags": "builder,clojure",
-		    "version": "latest"
+		    "version": "latest",
+		    "supports": "clojure"
 		},
 		"from": {
 		    "kind": "DockerImage",
-		    "name": "namespacex/s2i-clojure:latest"
+		    "name": "s2i-clojure:latest"
 		}
 	    }
 	]
@@ -66,3 +79,6 @@ Make it look like this:
 }
 
 ```
+
+Wait for a while to catalog service to catch up and your Clojure S2I
+builder should appear in the catalog under section "other".
