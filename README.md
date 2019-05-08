@@ -8,7 +8,7 @@ Login to your OpenShift cluster
 
 You can install this to any namespace but "openshift" is visible to all by default and it is used when service catalog searches for builders so let's use it.
 
-```oc new-build https://github.com/tfriman/s2i-clojure --name s2i-clojure -n openshift```
+```oc new-build https://github.com/tfriman/s2i-clojure#1.0.0 --name s2i-clojure -n openshift```
 
 You can follow the build
 
@@ -22,7 +22,7 @@ Create a test project
 
 After the build has finished you can test your new builder:
 
-```oc new-build s2i-clojure~https://bitbucket.org/tfriman/clj-rest-helloworld --name=clj-test```
+```oc new-build s2i-clojure~https://github.com/tfriman/clj-rest-helloworld#v1.0.0 --name=clj-test```
 
 And follow the build
 
@@ -66,7 +66,7 @@ Make it look like this:
 		    "openshift.io/display-name": "S2I Clojure",
 		    "description": "Build and deploy a Clojure app",
 		    "iconClass": "icon-clojure",
-		    "sampleRepo": "https://bitbucket.org/tfriman/clj-rest-helloworld",
+		    "sampleRepo": "https://github.com/tfriman/clj-rest-helloworld#v1.0.0",
 		    "tags": "builder,clojure",
 		    "version": "latest",
 		    "supports": "clojure"
