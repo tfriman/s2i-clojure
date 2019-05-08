@@ -66,7 +66,8 @@ Make it look like this:
 		    "openshift.io/display-name": "S2I Clojure",
 		    "description": "Build and deploy a Clojure app",
 		    "iconClass": "icon-clojure",
-		    "sampleRepo": "https://github.com/tfriman/clj-rest-helloworld#v1.0.0",
+		    "sampleRepo": "https://github.com/tfriman/clj-rest-helloworld",
+		    "sampleRef": "v1.0.0",
 		    "tags": "builder,clojure",
 		    "version": "latest",
 		    "supports": "clojure"
