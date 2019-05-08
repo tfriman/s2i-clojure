@@ -8,7 +8,7 @@ Login to your OpenShift cluster
 
 You can install this to any namespace but "openshift" is visible to all by default and it is used when service catalog searches for builders so let's use it.
 
-```oc new-build https://github.com/tfriman/s2i-clojure#1.0.0 --name s2i-clojure -n openshift```
+```oc new-build https://github.com/tfriman/s2i-clojure#v1.0.0 --name s2i-clojure -n openshift```
 
 You can follow the build
 
