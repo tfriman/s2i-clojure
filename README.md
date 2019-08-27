@@ -10,6 +10,8 @@ You can install this to any namespace but "openshift" is visible to all by defau
 
 ```oc new-build https://github.com/tfriman/s2i-clojure#v1.0.0 --name s2i-clojure -n openshift```
 
+oc new-build https://github.com/tfriman/s2i-clojure#graal-build --name s2i-clojure-graal -n openshift
+
 You can follow the build
 
 ```oc logs -f bc/s2i-clojure -n openshift```
