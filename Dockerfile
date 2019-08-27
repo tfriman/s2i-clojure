@@ -21,7 +21,8 @@ RUN chown -R 1001:1001 /opt/app-root
 
 ENV GRAALVM_VERSION 19.2.0
 ENV GRAALVM_HOME="/opt/graalvm"
-RUN curl https://github.com/oracle/graal/releases/download/vm-${GRAALVM_VERSION}/graalvm-ce-linux-amd64-${GRAALVM_VERSION}.tar.gz -o graalvm.tar.gz
+RUN wget https://github.com/oracle/graal/releases/download/vm-${GRAALVM_VERSION}/graalvm-ce-linux-amd64-${GRAALVM_VERSION}.tar.gz -O graalvm.tar.gz
+RUN file graalvm.tar.gz
 RUN tar -xzvf graalvm.tar.gz -C /opt && mv /opt/graalvm-ce-${GRAALVM_VERSION} /opt/graalvm
 RUN ${GRAALVM_HOME}/bin/gu --auto-yes install native-image
 
