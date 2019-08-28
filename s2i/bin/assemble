@@ -25,5 +25,6 @@ mv /tmp/src ${HOME}/src
 echo "---> Building application from source..."
 
 pushd ${HOME}/src > /dev/null
-mv "$(${HOME}/lein uberjar | sed -n 's/^Created \(.*\.jar\)/\1/p'|tail -1)" ${HOME}/app-standalone.jar
+#mv "$(${HOME}/lein uberjar | sed -n 's/^Created \(.*\.jar\)/\1/p'|tail -1)" ${HOME}/app-standalone.jar
+${HOME}/lein native-image && cp target/app ${HOME}/app
 popd > /dev/null
